@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dkvqxmm5xutww"]
-
-[ext_resource type="Script" uid="uid://cmum7tvvyahke" path="res://game_state.gd" id="1_30ppg"]
-
-[node name="GameState" type="Node"]
-script = ExtResource("1_30ppg")
