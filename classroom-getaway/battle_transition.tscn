@@ -1,0 +1,82 @@
+[gd_scene load_steps=8 format=3 uid="uid://dorqr58q5ur7m"]
+
+[ext_resource type="Shader" uid="uid://cd7e4e3hw5glw" path="res://battle_circle.gdshader" id="1_yatox"]
+[ext_resource type="Script" uid="uid://bc0wsuihpew3p" path="res://battle_transition.gd" id="2_35naj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_35naj"]
+shader = ExtResource("1_yatox")
+shader_parameter/circle_size = 1.0
+
+[sub_resource type="Animation" id="Animation_gn6qk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/circle_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_ekxkj"]
+resource_name = "fade_in"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/circle_size")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_2wpff"]
+resource_name = "fade_out"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/circle_size")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8vj5q"]
+_data = {
+&"RESET": SubResource("Animation_gn6qk"),
+&"fade_in": SubResource("Animation_ekxkj"),
+&"fade_out": SubResource("Animation_2wpff")
+}
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("2_35naj")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_35naj")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../ColorRect")
+libraries = {
+&"": SubResource("AnimationLibrary_8vj5q")
+}
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

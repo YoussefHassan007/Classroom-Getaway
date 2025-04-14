@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://ctdid2nwnftwd"]
+
+[ext_resource type="Script" uid="uid://cypdo3edovxei" path="res://Enemy/BaseEnemy.gd" id="1_wpkiq"]
+[ext_resource type="Texture2D" uid="uid://lcv6k8lcd2me" path="res://Battle/maxresdefault-removebg-preview.png" id="2_lp02v"]
+
+[resource]
+script = ExtResource("1_wpkiq")
+name = "Watson"
+texture = ExtResource("2_lp02v")
+health = 40
+damage = 15
